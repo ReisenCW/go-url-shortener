@@ -1,5 +1,15 @@
 package store
 
+/*
+测试工具识别：
+	测试文件：_test.go结尾
+	测试函数：Test开头, 参数为(t *testing.T)
+
+init函数会在测试函数之前执行
+
+测试工具使用方法：在store目录下执行 go test -v进行单元测试
+*/
+
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -20,10 +30,7 @@ func TestInsertionAndRetrieval(t *testing.T) {
 	userUUId := "e0dba740-fc4b-4977-872c-d360239e6b1a"
 	shortURL := "Jsz4k57oAX"
 
-	// Persist data mapping
 	SaveUrlMapping(shortURL, initialLink, userUUId)
-
-	// Retrieve initial URL
 	retrievedUrl := RetrieveInitialUrl(shortURL)
 
 	assert.Equal(t, initialLink, retrievedUrl)
