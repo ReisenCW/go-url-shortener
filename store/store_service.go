@@ -15,7 +15,7 @@ type StorageService struct {
 // Top level declarations for the storeService and Redis context
 var (
 	storeService = &StorageService{} // 单例模式
-    ctx = context.Background()	
+    ctx = context.Background()
 )
 
 // 完成 redis 客户端的创建、连接
@@ -39,6 +39,7 @@ func InitializeStore() *StorageService {
 
 // 保存原url与生成的短url的映射关系
 func SaveUrlMapping(shortUrl string, originalUrl string, userId string) { 
+	// 调用Redis的Set命令, 将shortUrl作为键，originalUrl作为值存储，设置过期时间CacheDuration
 	err := storeService.redisClient.Set(ctx, shortUrl, originalUrl, CacheDuration).Err()
 	if err != nil {
 		panic(fmt.Sprintf("Failed saving key url | Error: %v - shortUrl: %s - originalUrl: %s\n", err, shortUrl, originalUrl))
@@ -47,6 +48,7 @@ func SaveUrlMapping(shortUrl string, originalUrl string, userId string) {
 
 // 根据短url获取原始url
 func RetrieveInitialUrl(shortUrl string) string {
+	// 调用Redis的Get命令，根据shortUrl查询对应的原始链接
 	result, err := storeService.redisClient.Get(ctx, shortUrl).Result()
 	if err != nil {
 		panic(fmt.Sprintf("Failed RetrieveInitialUrl url | Error: %v - shortUrl: %s\n", err, shortUrl))
