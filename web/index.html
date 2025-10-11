@@ -1,0 +1,35 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>url-shortner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <h1>URL Shortener Service</h1>
+        <div class="shorten">
+            <div>
+                <label for="urlInput" class="url-label">URL to shorten:</label>
+                <input type="text" class="url-input" id="urlInput" placeholder="Enter URL to shorten">
+            </div>
+            <div>
+                <label for="userIdInput" class="inline-label">User ID (optional):</label>
+                <input type="text" id="userIdInput" placeholder="user id">
+                <button id="shortenBtn">Shorten</button>
+            </div>
+        </div>
+        <div class="result">
+            <label for="shortenedUrl" class="url-input">Shortened URL:</label>
+            <input type="text" class="user-input" id="shortenedUrl" readonly>
+            <button id="copyBtn" style="display:none">Copy</button>
+        </div>
+    </div>
+    <script src="functions.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('shortenBtn').addEventListener('click', onSubmit);
+        });
+    </script>
+</body>
+</html>

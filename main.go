@@ -5,13 +5,26 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ReisenCW/go-url-shortener/handler"
 	"github.com/ReisenCW/go-url-shortener/store"
+	"github.com/gin-contrib/cors"
+	"time"
 )
 
 func main() {
 	r := gin.Default()
+
+	    // 添加CORS中间件：允许前端跨域访问
+    r.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"*"}, // 开发环境允许所有源（生产环境需指定具体域名）
+        AllowMethods:     []string{"GET", "POST", "OPTIONS"},
+        AllowHeaders:     []string{"Origin", "Content-Type"},
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+        MaxAge:           12 * time.Hour,
+    }))
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hey Go URL Shortener !",
+			"message": "Welcome to Go URL Shortener !",
 		})
 	})
 
