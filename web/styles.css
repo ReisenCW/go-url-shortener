@@ -1,120 +1,291 @@
-/* Basic reset */
+/* 基础变量定义 */
+:root {
+	--primary-color: #2563eb;
+	--primary-light: #3b82f6;
+	--primary-dark: #1d4ed8;
+	--neutral-light: #f8fafc;
+	--neutral-medium: #e2e8f0;
+	--neutral-dark: #64748b;
+	--success-color: #10b981;
+	--error-color: #ef4444;
+	--shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--transition: all 0.25s ease;
+}
+
+/* 基础重置 */
 * {
 	box-sizing: border-box;
-}
-
-html, body {
-	height: 100%;
 	margin: 0;
-	font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
-	background: #f6f9fc;
-	color: #0f1720;
-	font-size: 18px; /* larger base font */
+	padding: 0;
 }
 
-/* Centered page container */
-body > div {
-	max-width: 920px;
-	margin: 40px auto;
-	background: #ffffff;
-	padding: 28px 36px;
-	border-radius: 10px;
-	box-shadow: 0 6px 18px rgba(15,23,32,0.08);
+html,
+body {
+	height: 100%;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+	color: #1e293b;
+	line-height: 1.5;
 }
 
-h1 {
-	margin: 0 0 18px 0;
-	font-size: 26px;
-	letter-spacing: -0.2px;
+/* 容器样式 */
+.container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 2rem 1rem;
 }
 
-.form-row {
-	display: flex;
-	align-items: flex-start;
-	gap: 12px;
-	margin-top: 16px;
+/* 头部样式 */
+header {
+	text-align: center;
+	margin-bottom: 2.5rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid var(--neutral-medium);
 }
 
-.row-label {
-	width: 160px; /* fixed label column */
-	padding-top: 8px;
-}
-
-.row-controls {
-	flex: 1;
+header h1 {
+	font-size: 2.2rem;
+	color: var(--primary-dark);
+	margin-bottom: 0.5rem;
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	justify-content: center;
+	gap: 0.75rem;
 }
 
-.result-controls {
-	gap: 10px;
+.subtitle {
+	color: var(--neutral-dark);
+	font-size: 1.1rem;
+	font-weight: 500;
 }
 
-label {
-	font-size: 16px;
+/* 卡片样式 */
+.shorten-card,
+.result-card {
+	background: white;
+	border-radius: var(--radius-md);
+	padding: 1.75rem;
+	box-shadow: var(--shadow-md);
+	margin-bottom: 1.5rem;
+	transition: var(--transition);
+}
+
+.shorten-card:hover,
+.result-card:hover {
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.result-card {
+	display: none;
+}
+
+.result-card.visible {
+	display: block;
+	animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* 输入组样式 */
+.input-group {
+	margin-bottom: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.url-label,
+.inline-label {
+	font-size: 0.95rem;
 	color: #334155;
+	font-weight: 500;
 }
 
-input[type="text"] {
-	padding: 10px 12px;
-	border-radius: 10px;
-	border: 1px solid #e6eef6;
-	background: #fbfdff;
-	font-size: 16px;
-	color: #0f1720;
+.url-input,
+#userIdInput {
+	padding: 0.9rem 1.2rem;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--neutral-medium);
+	font-size: 1rem;
+	transition: var(--transition);
 }
 
-input[readonly] {
-	background: #f1f5f9;
-	border-color: #e2e8f0;
+.url-input:focus,
+#userIdInput:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-button {
-	padding: 10px 14px;
-	border-radius: 10px;
-	border: none;
-	background: #0ea5a1;
+/* 按钮样式 */
+.primary-btn {
+	background: var(--primary-color);
 	color: white;
+	border: none;
+	border-radius: var(--radius-sm);
+	padding: 0.9rem 1.5rem;
+	font-size: 1rem;
+	font-weight: 600;
 	cursor: pointer;
-	font-weight: 700;
-	font-size: 15px;
+	transition: var(--transition);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
 }
 
-button:disabled {
-	opacity: 0.6;
+.primary-btn:hover {
+	background: var(--primary-dark);
+	transform: translateY(-2px);
+}
+
+.primary-btn:active {
+	transform: translateY(0);
+}
+
+.primary-btn:disabled {
+	background: var(--neutral-medium);
 	cursor: not-allowed;
+	transform: none;
 }
 
-.result input[type="text"] {
-	width: 100%;
-	min-width: 360px;
+/* 加载动画 */
+.loading-spinner {
+	display: none;
 }
 
-/* small screens */
+.primary-btn.loading .loading-spinner {
+	display: inline-block;
+}
+
+.primary-btn.loading .btn-text {
+	display: none;
+}
+
+/* 结果区域样式 */
+.result-group {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.result-input {
+	flex: 1;
+	padding: 0.9rem 1.2rem;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--neutral-medium);
+	background: var(--neutral-light);
+	font-size: 1rem;
+	cursor: pointer;
+	transition: var(--transition);
+}
+
+.result-input:hover {
+	border-color: var(--primary-color);
+}
+
+.copy-btn {
+	background: white;
+	color: var(--primary-color);
+	border: 1px solid var(--primary-color);
+	border-radius: var(--radius-sm);
+	padding: 0.9rem 1.2rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: var(--transition);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.copy-btn:hover {
+	background: var(--primary-color);
+	color: white;
+}
+
+.result-hint {
+	margin-top: 1rem;
+	font-size: 0.9rem;
+	color: var(--neutral-dark);
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* 错误提示 */
+.error-message {
+	color: var(--error-color);
+	font-size: 0.9rem;
+	padding: 0.75rem;
+	border-radius: var(--radius-sm);
+	background: rgba(239, 68, 68, 0.1);
+	border: 1px solid rgba(239, 68, 68, 0.2);
+	display: none;
+}
+
+.error-message.visible {
+	display: block;
+	animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-5px);
+	}
+
+	75% {
+		transform: translateX(5px);
+	}
+}
+
+/* 响应式设计 */
 @media (max-width: 640px) {
-	body > div {
-		margin: 18px;
-		padding: 18px;
+	.container {
+		padding: 1.5rem 1rem;
 	}
-	.shorten, .result {
-		gap: 6px;
+
+	header h1 {
+		font-size: 1.8rem;
 	}
-	input[type="text"] {
-		font-size: 14px;
+
+	.input-group,
+	.result-group {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.result-group {
+		gap: 0.5rem;
+	}
+
+	.primary-btn,
+	.copy-btn {
+		width: 100%;
+	}
+
+	.result-input {
+		min-width: auto;
+		width: 100%;
 	}
 }
-
-/* subtle link style (if you display a clickable short url) */
-.short-url-link {
-	color: #0b7285;
-	text-decoration: none;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.copy-btn-small {
-	padding: 6px 10px;
-	font-size: 14px;
-}
-

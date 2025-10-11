@@ -1,30 +1,53 @@
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>url-shortner</title>
+    <title>URL Shortener Service</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <div>
-        <h1>URL Shortener Service</h1>
-        <div class="shorten">
-            <div>
-                <label for="urlInput" class="url-label">URL to shorten:</label>
-                <input type="text" class="url-input" id="urlInput" placeholder="Enter URL to shorten">
+    <main class="container">
+        <header>
+            <h1><i class="fas fa-link"></i> URL Shortener</h1>
+            <p class="subtitle">快速将长链接转换为简洁易记的短链接</p>
+        </header>
+
+        <section class="shorten-card">
+            <div class="input-group">
+                <label for="urlInput" class="url-label">需要缩短的URL：</label>
+                <input type="text" class="url-input" id="urlInput" placeholder="例如：https://example.com"
+                    autocomplete="off">
             </div>
-            <div>
-                <label for="userIdInput" class="inline-label">User ID (optional):</label>
-                <input type="text" id="userIdInput" placeholder="user id">
-                <button id="shortenBtn">Shorten</button>
+
+            <div class="input-group">
+                <label for="userIdInput" class="inline-label">用户ID（可选）：</label>
+                <input type="text" id="userIdInput" placeholder="用于区分不同用户的链接" autocomplete="off">
+                <button id="shortenBtn" class="primary-btn">
+                    <span class="btn-text">缩短链接</span>
+                    <span class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+                </button>
             </div>
-        </div>
-        <div class="result">
-            <label for="shortenedUrl" class="url-input">Shortened URL:</label>
-            <input type="text" class="user-input" id="shortenedUrl" readonly>
-            <button id="copyBtn" style="display:none">Copy</button>
-        </div>
-    </div>
+
+            <div class="error-message" id="errorMsg"></div>
+        </section>
+
+        <section class="result-card" id="resultCard">
+            <h2>缩短结果</h2>
+            <div class="result-group">
+                <label for="shortenedUrl">短链接：</label>
+                <input type="text" class="result-input" id="shortenedUrl" readonly>
+                <button id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i>
+                    <span>复制</span>
+                </button>
+            </div>
+            <p class="result-hint"><i class="fas fa-info-circle"></i> 点击短链接可直接访问原网站</p>
+        </section>
+    </main>
+
     <script src="functions.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -32,4 +55,5 @@
         });
     </script>
 </body>
+
 </html>
