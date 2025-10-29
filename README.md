@@ -1,6 +1,6 @@
 # 项目简介
 * 本项目基于go语言,redis,以及一个简单的web前端,实现了一个url的shortener,用户可以将一个长url转换成一个短url,并且可以通过短url访问到长url.
-* 本项目参考了教程https://www.eddywm.com/lets-build-a-url-shortener-in-go/并在其基础上进行了进一步的实现(包括web前端,以及一些功能的完善).
+* 本项目参考了教程https://www.eddywm.com/lets-build-a-url-shortener-in-go/ , 并在其基础上进行了进一步的实现(包括web前端,以及一些功能的完善).
 
 # 效果预览
 
