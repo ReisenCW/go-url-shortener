@@ -1,0 +1,29 @@
+services: # 定义所有服务
+  # 服务app(后端)
+  app:
+    build: .
+    ports: # 端口映射：宿主机端口:容器内端口
+      - "9808:9808"
+    depends_on: # 依赖于服务redis, 保证redis先启动
+      - redis
+    environment:
+      - REDIS_ADDR=redis:6379  # 容器内访问 Redis 的地址
+    networks: # 容器内访问 Redis 的地址.redis 是服务名,Docker 会自动解析为容器 IP
+      - app-network # 加入自定义网络，实现与其他服务通信
+
+  # 服务redis
+  redis:
+    image: redis:7-alpine # 使用官方 Redis 镜像
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data  # 持久化 Redis 数据
+    networks:
+      - app-network # 加入与后端相同的网络
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  redis-data:

@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"fmt"
+	"os"
 	"github.com/go-redis/redis/v8"
 	"time"
 )
@@ -20,8 +21,12 @@ var (
 
 // 完成 redis 客户端的创建、连接
 func InitializeStore() *StorageService {
+	redisAddr := os.Getenv("REDIS_ADDR")
+    if redisAddr == "" {
+        redisAddr = "localhost:6379" // 默认地址, 方便本地开发测试
+    }
 	redisClient := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     redisAddr,
 		Password: "", // 无密码
 		DB:       0,  // 默认DB
 	})
@@ -47,13 +52,13 @@ func SaveUrlMapping(shortUrl string, originalUrl string, userId string) {
 }
 
 // 根据短url获取原始url
-func RetrieveInitialUrl(shortUrl string) string {
+func RetrieveInitialUrl(shortUrl string) (string, error) {
 	// 调用Redis的Get命令，根据shortUrl查询对应的原始链接
 	result, err := storeService.redisClient.Get(ctx, shortUrl).Result()
 	if err != nil {
-		panic(fmt.Sprintf("Failed RetrieveInitialUrl url | Error: %v - shortUrl: %s\n", err, shortUrl))
+		return "", fmt.Errorf("failed retrieveInitialUrl url | error: %v - shortUrl: %s", err, shortUrl)
 	}
-	return result
+	return result, nil
 }
 
 // 实际应用中，缓存不应该设置过期时间，应该设置LRU策略

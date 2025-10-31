@@ -45,7 +45,11 @@ func HandleShortUrlRedirect(c *gin.Context) {
 	// main中的路由定义 r.GET("/:shortUrl", ...)，:
 	// shortUrl 是一个动态路径参数（类似占位符），代表短url的唯一标识
 	shortUrl := c.Param("shortUrl")
-	initialUrl := store.RetrieveInitialUrl(shortUrl)
+	initialUrl, err := store.RetrieveInitialUrl(shortUrl)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
 	// 302 HTTP 状态码，表示 "临时重定向"
 	c.Redirect(302, initialUrl)
 }

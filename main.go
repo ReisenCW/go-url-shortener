@@ -12,7 +12,7 @@ import (
 func main() {
 	r := gin.Default()
 
-	    // 添加CORS中间件：允许前端跨域访问
+	// 添加CORS中间件：允许前端跨域访问
     r.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"*"}, // 开发环境允许所有源（生产环境需指定具体域名）
         AllowMethods:     []string{"GET", "POST", "OPTIONS"},
@@ -35,6 +35,9 @@ func main() {
 	r.GET("/:shortUrl", func(c *gin.Context) {
 		handler.HandleShortUrlRedirect(c)
 	})
+
+	// 静态文件服务，提供前端页面
+	r.Static("/web", "./web")  // relative path, root path
 
 	// Note that store initialization happens here
 	store.InitializeStore()

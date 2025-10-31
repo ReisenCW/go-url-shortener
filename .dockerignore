@@ -1,0 +1,24 @@
+# Binaries
+server
+
+# VCS
+.git
+
+# Dependencies and IDE
+vendor/
+node_modules/
+*.log
+*.out
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Go specific
+*.test
+
+# Dockerfile named 'dockerfile' already present, but ignore any other local dockerfiles
+Dockerfile*
